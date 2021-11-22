@@ -8,6 +8,9 @@ import com.jacoblindev.updnfiledemo.model.Tutorial;
 import com.jacoblindev.updnfiledemo.service.ExcelService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -36,7 +39,6 @@ public class ExcelController {
                 message = "Uploaded the excel file successfully： " + file.getOriginalFilename();
                 return new ResponseEntity<>(new ResponseMessage(message), HttpStatus.OK);
             } catch (Exception e) {
-                System.out.print(e);
                 message = "Could not upload the file: " + file.getOriginalFilename() + "!";
                 return new ResponseEntity<>(new ResponseMessage(message), HttpStatus.EXPECTATION_FAILED);
             }
@@ -57,5 +59,15 @@ public class ExcelController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/excel/download")
+    public ResponseEntity<Resource> getFile() {
+        String filename = "tutorials.xlsx";
+        InputStreamResource file = new InputStreamResource(excelFileService.load());
+        HttpHeaders resHeaders = new HttpHeaders();
+        resHeaders.set("Content-disposition", "attachment; filename=" + filename);
+        resHeaders.set("Content-Type", "application/vnd.ms-excel");
+        return new ResponseEntity<>(file, resHeaders, HttpStatus.OK);
     }
 }

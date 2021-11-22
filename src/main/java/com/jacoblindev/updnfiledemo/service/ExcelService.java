@@ -1,5 +1,6 @@
 package com.jacoblindev.updnfiledemo.service;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -27,5 +28,10 @@ public class ExcelService {
 
     public List<Tutorial> getAllTutorials() {
         return tutorialRepository.findAll();
+    }
+
+    public ByteArrayInputStream load() {
+        List<Tutorial> tutorials = tutorialRepository.findAll();
+        return ExcelHelper.tutorialsToExcel(tutorials);
     }
 }
