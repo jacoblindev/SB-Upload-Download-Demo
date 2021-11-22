@@ -1,5 +1,7 @@
 package com.jacoblindev.updnfiledemo.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,7 +32,7 @@ public class FilesController {
     @Autowired
     FilesStorageService fsService;
 
-    @PostMapping("/upload")
+    @PostMapping("/upload-file")
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
             fsService.save(file);
@@ -40,6 +42,22 @@ public class FilesController {
         } catch (Exception e) {
             return new ResponseEntity<>(
                     new ResponseMessage("Couldn't upload the file: " + file.getOriginalFilename() + "!"),
+                    HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+
+    @PostMapping("/upload-files")
+    public ResponseEntity<ResponseMessage> uploadFiles(@RequestParam("files") MultipartFile[] files) {
+        try {
+            List<String> filenames = new ArrayList<>();
+            Arrays.asList(files).stream().forEach(file -> {
+                fsService.save(file);
+                filenames.add(file.getOriginalFilename());
+            });
+            return new ResponseEntity<>(new ResponseMessage("Uploaded files successfully： " + filenames),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ResponseMessage("Fail to upload the files！"),
                     HttpStatus.EXPECTATION_FAILED);
         }
     }

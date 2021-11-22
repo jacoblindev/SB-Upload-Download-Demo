@@ -20,7 +20,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ResponseEntity<ResponseMessage> handleMaxSizeException(MaxUploadSizeExceededException exc) {
         log.warn("MaxUploadSizeExceededException occured with {}", exc.getMessage());
-        return new ResponseEntity<>(new ResponseMessage("File too large...!"), HttpStatus.EXPECTATION_FAILED);
+        return new ResponseEntity<>(new ResponseMessage("One or more files are too large!"),
+                HttpStatus.EXPECTATION_FAILED);
     }
 
     @ExceptionHandler(ApiException.class)
