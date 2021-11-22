@@ -22,14 +22,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/excel")
 @CrossOrigin("http://localhost:8081")
 public class ExcelController {
 
     @Autowired
     ExcelService excelFileService;
 
-    @PostMapping("/excel/upload")
+    @PostMapping("/upload")
     public ResponseEntity<ResponseMessage> uploadExcelFile(@RequestParam("file") MultipartFile file) {
         String message = "";
 
@@ -61,7 +61,7 @@ public class ExcelController {
         }
     }
 
-    @GetMapping("/excel/download")
+    @GetMapping("/download")
     public ResponseEntity<Resource> getFile() {
         String filename = "tutorials.xlsx";
         InputStreamResource file = new InputStreamResource(excelFileService.load());
@@ -71,7 +71,7 @@ public class ExcelController {
         return new ResponseEntity<>(file, resHeaders, HttpStatus.OK);
     }
 
-    @GetMapping("/excel/template")
+    @GetMapping("/template")
     public ResponseEntity<Resource> getTemplate() {
         String filename = "tutorials.xlsx";
         InputStreamResource file = new InputStreamResource(excelFileService.loadTemplate());
