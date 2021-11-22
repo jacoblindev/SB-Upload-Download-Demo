@@ -30,6 +30,13 @@ public class Tutorial {
         this.published = published;
     }
 
+    public Tutorial(long id, String title, String description, int published) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.published = published;
+    }
+
     public long getId() {
         return id;
     }
