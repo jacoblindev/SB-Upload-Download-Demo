@@ -19,6 +19,7 @@ public class UpdnfiledemoApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... arg) throws Exception {
+		// Everytime the app start will delete the uploads folder & recreate it again!
 		fsService.deleteAll();
 		fsService.init();
 	}
