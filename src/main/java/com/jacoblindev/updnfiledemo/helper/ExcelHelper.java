@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.jacoblindev.updnfiledemo.exception.ApiException;
 import com.jacoblindev.updnfiledemo.model.Tutorial;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -82,7 +83,7 @@ public class ExcelHelper {
             workbook.close();
             return tutorials;
         } catch (IOException e) {
-            throw new RuntimeException("Fail to parse Excel file: " + e.getMessage());
+            throw new ApiException("Fail to parse Excel file: " + e.getMessage());
         }
     }
 
@@ -110,7 +111,7 @@ public class ExcelHelper {
             workbook.write(out);
             return new ByteArrayInputStream(out.toByteArray());
         } catch (IOException e) {
-            throw new RuntimeException("Fail to import data to Excel file: " + e.getMessage());
+            throw new ApiException("Fail to import data to Excel file: " + e.getMessage());
         }
     }
 

@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
 
+import com.jacoblindev.updnfiledemo.exception.ApiException;
 import com.jacoblindev.updnfiledemo.helper.ExcelHelper;
 import com.jacoblindev.updnfiledemo.model.Tutorial;
 import com.jacoblindev.updnfiledemo.repository.TutorialRepository;
@@ -22,7 +23,7 @@ public class ExcelService {
             List<Tutorial> tutorials = ExcelHelper.excelTutorials(file.getInputStream());
             tutorialRepository.saveAll(tutorials);
         } catch (IOException e) {
-            throw new RuntimeException("Fail to store excel data: " + e.getMessage());
+            throw new ApiException("Fail to store excel data: " + e.getMessage());
         }
     }
 
