@@ -70,4 +70,14 @@ public class ExcelController {
         resHeaders.set("Content-Type", "application/vnd.ms-excel");
         return new ResponseEntity<>(file, resHeaders, HttpStatus.OK);
     }
+
+    @GetMapping("/excel/template")
+    public ResponseEntity<Resource> getTemplate() {
+        String filename = "tutorials.xlsx";
+        InputStreamResource file = new InputStreamResource(excelFileService.loadTemplate());
+        HttpHeaders resHeaders = new HttpHeaders();
+        resHeaders.set("Content-disposition", "attachment; filename=" + filename);
+        resHeaders.set("Content-Type", "application/vnd.ms-excel");
+        return new ResponseEntity<>(file, resHeaders, HttpStatus.OK);
+    }
 }

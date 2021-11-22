@@ -35,4 +35,8 @@ public class ExcelService {
         List<Tutorial> tutorials = tutorialRepository.findAll();
         return ExcelHelper.tutorialsToExcel(tutorials);
     }
+
+    public ByteArrayInputStream loadTemplate() {
+        return ExcelHelper.templateToExcel();
+    }
 }

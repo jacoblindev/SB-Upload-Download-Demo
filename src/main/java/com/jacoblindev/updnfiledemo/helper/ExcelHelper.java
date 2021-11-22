@@ -87,6 +87,22 @@ public class ExcelHelper {
         }
     }
 
+    public static ByteArrayInputStream templateToExcel() {
+        try (Workbook workbook = new XSSFWorkbook(); ByteArrayOutputStream out = new ByteArrayOutputStream();) {
+            Sheet sheet = workbook.createSheet(SHEET);
+            // Header
+            Row headerRow = sheet.createRow(0);
+            for (int col = 0; col < HEADERS.length; col++) {
+                Cell cell = headerRow.createCell(col);
+                cell.setCellValue(HEADERS[col]);
+            }
+            workbook.write(out);
+            return new ByteArrayInputStream(out.toByteArray());
+        } catch (Exception e) {
+            throw new ApiException("Fail to import data to Excel file: " + e.getMessage());
+        }
+    }
+
     public static ByteArrayInputStream tutorialsToExcel(List<Tutorial> tutorials) {
 
         try (Workbook workbook = new XSSFWorkbook(); ByteArrayOutputStream out = new ByteArrayOutputStream();) {
