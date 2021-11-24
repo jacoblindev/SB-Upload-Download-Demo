@@ -121,7 +121,7 @@ public class ExcelHelper {
                 row.createCell(0).setCellValue(tutorial.getId());
                 row.createCell(1).setCellValue(tutorial.getTitle());
                 row.createCell(2).setCellValue(tutorial.getDescription());
-                row.createCell(3).setCellValue(tutorial.isPublished());
+                row.createCell(3).setCellValue(tutorial.getPublished());
             }
 
             workbook.write(out);

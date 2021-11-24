@@ -64,7 +64,7 @@ public class Tutorial {
         this.description = description;
     }
 
-    public int isPublished() {
+    public int getPublished() {
         return published;
     }
 
